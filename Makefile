@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3
+.PHONY: clean data lint requirements sync_data_to_s3 sync_data_from_s3 notebook
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -27,6 +27,12 @@ sync_data_to_s3:
 
 sync_data_from_s3:
 	aws s3 sync s3://$(BUCKET)/data/ data/
+
+tunnel:
+    ssh -N -f -L localhost:8888:localhost:8889 kkrishnan8@socvulcan.cc.gatech.edu
+
+notebook:
+    cd notebooks/ && jupyter notebook --no-browser --port=8889
 
 #################################################################################
 # PROJECT RULES                                                                 #
